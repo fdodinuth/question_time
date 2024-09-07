@@ -42,4 +42,4 @@ def get_table_numbers():
     return jsonify({'table_numbers': table_numbers})
 
 if __name__ == '__main__':
-    app.run(debug=False,host='0.0.0.0')
+    app.run()
