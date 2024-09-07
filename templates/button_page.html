@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Button Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Enter Table Number</h1>
+        <form id="tableForm">
+            <input type="text" id="tableNumber" placeholder="Enter table number" required>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <script>
+        document.getElementById('tableForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const tableNumber = document.getElementById('tableNumber').value;
+            fetch('/show_equation', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ table_number: tableNumber }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Table number submitted successfully!');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>

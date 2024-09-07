@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presenter Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Table Numbers</h1>
+        <ul id="tableList">
+            <!-- Table numbers will be listed here -->
+        </ul>
+    </div>
+    <script>
+        function fetchTableNumbers() {
+            fetch('/get_table_numbers')
+                .then(response => response.json())
+                .then(data => {
+                    const tableList = document.getElementById('tableList');
+                    tableList.innerHTML = ''; // Clear the list
+                    data.table_numbers.forEach(item => {
+                        const listItem = document.createElement('li');
+                        listItem.innerHTML = `<strong>Table ${item.table_number}:</strong> ${item.timestamp}`;
+                        tableList.appendChild(listItem);
+                    });
+                })
+                .catch(error => console.error('Error:', error));
+        }
+        setInterval(fetchTableNumbers, 5000);
+        fetchTableNumbers(); // Initial fetch
+    </script>
+</body>
+</html>
