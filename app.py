@@ -17,7 +17,7 @@ def verify_password(username, password):
     if users.get(username) == password:
         return username
 
-# In-memory store for table numbers and timestamps
+# In-memory store for table numbers, questions, names, and timestamps
 table_numbers = []
 
 @app.route('/')
@@ -32,14 +32,23 @@ def presenter():
 @app.route('/show_equation', methods=['POST'])
 def show_equation():
     data = request.get_json()
-    table_number = data.get('table_number')
-    timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    table_numbers.append({'table_number': table_number, 'timestamp': timestamp})
+    table_number = data.get('table_number') if not data.get('anonymous') else 'Anonymous'
+    name = data.get('name') if not data.get('anonymous') else 'Anonymous'
+    question = data.get('question')
+    timestamp = datetime.now().strftime('%H:%M:%S')  # Only time
+    table_numbers.append({'table_number': table_number, 'question': question, 'name': name, 'timestamp': timestamp})
     return jsonify({'status': 'success'})
 
 @app.route('/get_table_numbers')
 def get_table_numbers():
     return jsonify({'table_numbers': table_numbers})
 
+@app.route('/clear_table_history', methods=['POST'])
+@auth.login_required
+def clear_table_history():
+    global table_numbers
+    table_numbers = []  # Clear the list
+    return jsonify({'status': 'success'})
+
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)

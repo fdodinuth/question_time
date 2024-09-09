@@ -1,0 +1,122 @@
+/* General Styles */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #121212, #2a2a2a);
+  color: #e0e0e0;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  width: 90%;
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 20px;
+  background: rgba(31, 31, 31, 0.9);
+  border-radius: 15px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.8);
+  text-align: center;
+  position: relative;
+}
+
+.clear-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #ff4d4d, #cc0000);
+  color: #ffffff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.clear-btn:hover {
+  background: linear-gradient(135deg, #cc0000, #ff4d4d);
+  transform: scale(1.05);
+}
+
+h1 {
+  font-size: 32px;
+  color: #ffffff;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+#tableList {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+#tableList li {
+  padding: 15px;
+  border-bottom: 1px solid #333;
+  background-color: #2e2e2e;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.highlight {
+  background-color: #333;
+}
+
+.table-number {
+  font-weight: bold;
+  font-size: 22px;
+  color: #ffdf00;
+  margin-bottom: 5px;
+}
+
+.question {
+  font-size: 18px;
+  color: #ffffff;
+}
+
+.timestamp {
+  color: #b5b9bc;
+}
+
+input[type="text"] {
+  background-color: #007bff;
+  color: #ffffff;
+  border: 1px solid #0056b3;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 15px;
+  font-size: 16px;
+  width: calc(100% - 32px);
+}
+
+input[type="text"]::placeholder {
+  color: #cccccc;
+}
+
+/* Submission Message Styles */
+.submission-message {
+  display: none; /* Hidden by default */
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 8px;
+  background: #2e2e2e;
+  color: #ffffff;
+  border: 1px solid #333;
+  font-size: 18px;
+  text-align: center;
+}
+
+.submission-message.success {
+  background: #28a745; /* Green background for success */
+  border-color: #1e7e34;
+}
+
+.submission-message.error {
+  background: #dc3545; /* Red background for error */
+  border-color: #c82333;
+}

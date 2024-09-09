@@ -3,35 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Button Page</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Ask Your Question</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='button_styles.css') }}">
 </head>
 <body>
     <div class="container">
-        <h1>Enter Table Number</h1>
-        <form id="tableForm">
-            <input type="text" id="tableNumber" placeholder="Enter table number" required>
+        <h1>Ask Your Question</h1>
+        <form id="questionForm">
+            <input type="text" id="tableNumber" placeholder="Enter Table Number" required>
+            <input type="text" id="name" placeholder="Enter Your Name">
+            <input type="text" id="question" placeholder="Enter Your Question" required>
+
+            <div class="anonymous-container">
+                <label class="checkbox-label">
+                    <input type="checkbox" id="anonymous" onclick="toggleAnonymous()">
+                    <span class="checkbox-text">Submit Anonymously</span>
+                </label>
+                <div class="anonymous-message" id="anonymousMessage">You will be submitting anonymously.</div>
+            </div>
+
             <button type="submit">Submit</button>
+            <div class="submission-message success" id="successMessage">Submitted Successfully!</div>
+            <div class="submission-message error" id="errorMessage">Submission Failed. Please try again.</div>
         </form>
     </div>
+
     <script>
-        document.getElementById('tableForm').addEventListener('submit', function(event) {
-            event.preventDefault();
+        function toggleAnonymous() {
+            const nameField = document.getElementById('name');
+            const tableNumberField = document.getElementById('tableNumber');
+            const anonymousMessage = document.getElementById('anonymousMessage');
+
+            if (document.getElementById('anonymous').checked) {
+                nameField.disabled = true;
+                tableNumberField.disabled = true;
+                anonymousMessage.style.display = 'block';
+                nameField.value = '';
+                tableNumberField.value = '';
+            } else {
+                nameField.disabled = false;
+                tableNumberField.disabled = false;
+                anonymousMessage.style.display = 'none';
+            }
+        }
+
+        document.getElementById('questionForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
             const tableNumber = document.getElementById('tableNumber').value;
-            fetch('/show_equation', {
+            const name = document.getElementById('name').value;
+            const question = document.getElementById('question').value;
+            const anonymous = document.getElementById('anonymous').checked;
+
+            const response = await fetch('/show_equation', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
+                    'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ table_number: tableNumber }),
-            })
-            .then(response => response.json())
-            .then(data => {
-                alert('Table number submitted successfully!');
-            })
-            .catch(error => {
-                console.error('Error:', error);
+                body: JSON.stringify({
+                    table_number: anonymous ? 'Anonymous' : tableNumber,
+                    name: anonymous ? 'Anonymous' : name,
+                    question: question
+                })
             });
+
+            const data = await response.json();
+            if (data.status === 'success') {
+                document.getElementById('successMessage').style.display = 'block';
+                document.getElementById('errorMessage').style.display = 'none';
+                document.getElementById('questionForm').reset();
+                document.getElementById('anonymous').checked = false;
+                toggleAnonymous();
+            } else {
+                document.getElementById('successMessage').style.display = 'none';
+                document.getElementById('errorMessage').style.display = 'block';
+            }
         });
     </script>
 </body>

@@ -4,32 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Presenter Page</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-</head>
-<body>
-    <div class="container">
-        <h1>Table Numbers</h1>
-        <ul id="tableList">
-            <!-- Table numbers will be listed here -->
-        </ul>
-    </div>
+    <link rel="stylesheet" href="{{ url_for('static', filename='presenter_styles.css') }}">
     <script>
-        function fetchTableNumbers() {
-            fetch('/get_table_numbers')
-                .then(response => response.json())
-                .then(data => {
-                    const tableList = document.getElementById('tableList');
-                    tableList.innerHTML = ''; // Clear the list
-                    data.table_numbers.forEach(item => {
-                        const listItem = document.createElement('li');
-                        listItem.innerHTML = `<strong>Table ${item.table_number}:</strong> ${item.timestamp}`;
-                        tableList.appendChild(listItem);
-                    });
-                })
-                .catch(error => console.error('Error:', error));
+        async function updateTableNumbers() {
+            const response = await fetch('/get_table_numbers');
+            const data = await response.json();
+            const tableList = document.getElementById('tableList');
+            tableList.innerHTML = ''; // Clear existing items
+
+            data.table_numbers.forEach(item => {
+                const listItem = document.createElement('li');
+                listItem.className = 'highlight'; // Add highlight class
+                listItem.innerHTML = `
+                    ${item.name !== 'Anonymous' ? `<div class="name">${item.name}</div>` : ''}
+                    ${item.table_number !== 'Anonymous' ? `<div class="table-number">${item.table_number}</div>` : ''}
+                    <div class="question">${item.question}</div>
+                    <div class="timestamp">${item.timestamp}</div>
+                `;
+                tableList.insertBefore(listItem, tableList.firstChild); // Insert new item at the top
+            });
         }
-        setInterval(fetchTableNumbers, 5000);
-        fetchTableNumbers(); // Initial fetch
+
+        async function clearHistory() {
+            const response = await fetch('/clear_table_history', {
+                method: 'POST'
+            });
+            const data = await response.json();
+            if (data.status === 'success') {
+                updateTableNumbers(); // Clear the list on success
+            } else {
+                alert('Failed to clear history');
+            }
+        }
+
+        // Update the table numbers every 5 seconds
+        setInterval(updateTableNumbers, 5000);
     </script>
+</head>
+<body onload="updateTableNumbers()">
+    <div class="container">
+        <button class="clear-btn" onclick="clearHistory()">Clear History</button>
+        <h1>Presenter Page</h1>
+        <ul id="tableList"></ul>
+    </div>
 </body>
 </html>
