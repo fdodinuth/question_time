@@ -55,16 +55,16 @@ button:hover {
 /* Anonymous Checkbox and Message Styling */
 .anonymous-container {
   display: flex;
-  flex-direction: column; /* Stack items vertically */
-  align-items: center; /* Center horizontally */
+  flex-direction: row; /* Arrange items horizontally */
+  align-items: center; /* Center items vertically */
+  justify-content: center; /* Center items horizontally */
   margin-top: 15px; /* Reduced margin for spacing */
 }
 
 .checkbox-label {
   display: flex;
   align-items: center; /* Center checkbox and text vertically */
-  justify-content: center; /* Center horizontally */
-  margin-bottom: 10px;
+  margin-right: 10px; /* Space between checkbox and text */
 }
 
 .checkbox-label input[type="checkbox"] {
@@ -80,7 +80,6 @@ button:hover {
 
 .anonymous-message {
   display: none;
-  margin-top: 10px; /* Space above the message */
   font-size: 12px; /* Smaller font size for message */
   color: #ffdf00;
   font-weight: bold;
@@ -125,5 +124,9 @@ button:hover {
 
   .checkbox-text {
     font-size: 14px; /* Consistent font size */
+  }
+
+  .anonymous-message {
+    font-size: 12px; /* Ensure font size is readable on small screens */
   }
 }
