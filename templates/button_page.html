@@ -19,7 +19,7 @@
                     <input type="checkbox" id="anonymous" onclick="toggleAnonymous()">
                     <span class="checkbox-text">Submit Anonymously</span>
                 </label>
-                <div class="anonymous-message" id="anonymousMessage">You will be submitting anonymously.</div>
+                <span class="anonymous-message">This will hide your name and table number.</span>
             </div>
 
             <button type="submit">Submit</button>
@@ -32,12 +32,12 @@
         function toggleAnonymous() {
             const nameField = document.getElementById('name');
             const tableNumberField = document.getElementById('tableNumber');
-            const anonymousMessage = document.getElementById('anonymousMessage');
+            const anonymousMessage = document.querySelector('.anonymous-message');
 
             if (document.getElementById('anonymous').checked) {
                 nameField.disabled = true;
                 tableNumberField.disabled = true;
-                anonymousMessage.style.display = 'block';
+                anonymousMessage.style.display = 'inline';
                 nameField.value = '';
                 tableNumberField.value = '';
             } else {
