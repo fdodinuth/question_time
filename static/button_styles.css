@@ -67,9 +67,9 @@ button:hover {
 }
 
 .checkbox-label input[type="checkbox"] {
-  width: 20px; /* Smaller checkbox */
-  height: 20px; /* Smaller checkbox */
-  margin-right: 10px; /* Space between checkbox and text */
+  width: 10px; /* Smaller checkbox */
+  height: 10px; /* Smaller checkbox */
+  margin-right: 5px; /* Space between checkbox and text */
 }
 
 .checkbox-text {
