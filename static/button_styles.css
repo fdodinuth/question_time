@@ -10,7 +10,7 @@ body {
 .container {
   width: 90%;
   max-width: 600px;
-  margin: 50px auto;
+  margin: 20px auto; /* Reduced margin for better fit on smaller screens */
   padding: 20px;
   background-color: #1f1f1f;
   border-radius: 15px;
@@ -19,29 +19,30 @@ body {
 }
 
 h1 {
-  font-size: 28px;
+  font-size: 24px; /* Reduced font size for smaller screens */
   color: #ffffff;
-  margin-bottom: 20px;
+  margin-bottom: 15px; /* Reduced margin for better spacing */
 }
 
 input {
   width: calc(100% - 30px);
-  padding: 15px;
-  margin-bottom: 15px;
+  padding: 12px; /* Slightly smaller padding */
+  margin-bottom: 12px; /* Reduced margin for spacing */
   border: 1px solid #333;
   border-radius: 8px;
   background-color: #2e2e2e;
   color: #e0e0e0;
   box-sizing: border-box;
+  font-size: 14px; /* Smaller font size for inputs */
 }
 
 button {
-  padding: 15px;
+  padding: 12px; /* Slightly smaller padding */
   border: none;
   border-radius: 8px;
   background-color: #007bff;
   color: #ffffff;
-  font-size: 18px;
+  font-size: 16px; /* Reduced font size */
   cursor: pointer;
   transition: background-color 0.3s ease;
   width: 100%;
@@ -56,7 +57,7 @@ button:hover {
   display: flex;
   flex-direction: column; /* Stack items vertically */
   align-items: center; /* Center horizontally */
-  margin-top: 20px;
+  margin-top: 15px; /* Reduced margin for spacing */
 }
 
 .checkbox-label {
@@ -67,20 +68,20 @@ button:hover {
 }
 
 .checkbox-label input[type="checkbox"] {
-  width: 10px; /* Smaller checkbox */
-  height: 10px; /* Smaller checkbox */
+  width: 6px; /* Smaller checkbox width */
+  height: 6px; /* Smaller checkbox height */
   margin-right: 5px; /* Space between checkbox and text */
 }
 
 .checkbox-text {
-  font-size: 16px;
+  font-size: 14px; /* Smaller font size for text */
   color: #e0e0e0;
 }
 
 .anonymous-message {
   display: none;
   margin-top: 10px; /* Space above the message */
-  font-size: 14px;
+  font-size: 12px; /* Smaller font size for message */
   color: #ffdf00;
   font-weight: bold;
 }
@@ -101,4 +102,28 @@ button:hover {
 .submission-message.error {
   background-color: #dc3545;
   color: #ffffff;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 600px) {
+  h1 {
+    font-size: 20px; /* Further reduced font size for small screens */
+  }
+
+  input {
+    font-size: 14px; /* Ensure font size is readable */
+  }
+
+  button {
+    font-size: 14px; /* Reduced font size */
+  }
+
+  .checkbox-label input[type="checkbox"] {
+    width: 6px; /* Smaller checkbox width */
+    height: 6px; /* Smaller checkbox height */
+  }
+
+  .checkbox-text {
+    font-size: 14px; /* Consistent font size */
+  }
 }
