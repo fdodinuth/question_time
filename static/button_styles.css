@@ -8,7 +8,7 @@ body {
 }
 
 .container {
-  width: 80%;
+  width: 90%;
   max-width: 600px;
   margin: 50px auto;
   padding: 20px;
@@ -61,12 +61,15 @@ button:hover {
 
 .checkbox-label {
   display: flex;
-  flex-direction: column; /* Stack checkbox and text vertically */
-  align-items: center; /* Center checkbox and text horizontally */
+  align-items: center; /* Center checkbox and text vertically */
+  justify-content: center; /* Center horizontally */
+  margin-bottom: 10px;
 }
 
 .checkbox-label input[type="checkbox"] {
-  margin-bottom: 10px; /* Space between checkbox and text */
+  width: 20px; /* Smaller checkbox */
+  height: 20px; /* Smaller checkbox */
+  margin-right: 10px; /* Space between checkbox and text */
 }
 
 .checkbox-text {
