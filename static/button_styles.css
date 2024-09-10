@@ -1,132 +1,112 @@
-/* General Styles */
+/* Base Styles */
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #121212;
-  color: #e0e0e0;
-  margin: 0;
-  padding: 0;
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #1e1e1e;
+    color: #ffffff;
+}
+
+/* Header Styles */
+.header {
+    background-color: #333;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+/* Main Content Styles */
+.main-content {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 120px); /* Adjust based on header and footer height */
 }
 
 .container {
-  width: 90%;
-  max-width: 600px;
-  margin: 20px auto; /* Reduced margin for better fit on smaller screens */
-  padding: 20px;
-  background-color: #1f1f1f;
-  border-radius: 15px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.8);
-  text-align: center;
+    width: 100%;
+    max-width: 480px;
+    background-color: #2c2c2c;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-h1 {
-  font-size: 24px; /* Reduced font size for smaller screens */
-  color: #ffffff;
-  margin-bottom: 15px; /* Reduced margin for better spacing */
+/* Form Styles */
+form {
+    display: flex;
+    flex-direction: column;
 }
 
-input {
-  width: calc(100% - 30px);
-  padding: 12px; /* Slightly smaller padding */
-  margin-bottom: 12px; /* Reduced margin for spacing */
-  border: 1px solid #333;
-  border-radius: 8px;
-  background-color: #2e2e2e;
-  color: #e0e0e0;
-  box-sizing: border-box;
-  font-size: 14px; /* Smaller font size for inputs */
+.form-group {
+    margin-bottom: 20px;
 }
 
-button {
-  padding: 12px; /* Slightly smaller padding */
-  border: none;
-  border-radius: 8px;
-  background-color: #007bff;
-  color: #ffffff;
-  font-size: 16px; /* Reduced font size */
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  width: 100%;
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
 }
 
-button:hover {
-  background-color: #0056b3;
+input[type="number"],
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #444;
+    border-radius: 4px;
+    background-color: #1e1e1e;
+    color: #ffffff;
+    font-size: 14px;
 }
 
-/* Anonymous Checkbox and Message Styling */
-.anonymous-container {
-  display: flex;
-  flex-direction: row; /* Arrange items horizontally */
-  align-items: center; /* Center items vertically */
-  justify-content: center; /* Center items horizontally */
-  margin-top: 15px; /* Reduced margin for spacing */
+input[type="number"]::placeholder,
+input[type="text"]::placeholder {
+    color: #888;
 }
 
-.checkbox-label {
-  display: flex;
-  align-items: center; /* Center checkbox and text vertically */
-  margin-right: 10px; /* Space between checkbox and text */
+.submit-btn {
+    background-color: #007bff;
+    color: #ffffff;
+    padding: 15px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
-.checkbox-label input[type="checkbox"] {
-  width: 6px; /* Smaller checkbox width */
-  height: 6px; /* Smaller checkbox height */
-  margin-right: 5px; /* Space between checkbox and text */
+.submit-btn:hover {
+    background-color: #0056b3;
 }
 
-.checkbox-text {
-  font-size: 14px; /* Smaller font size for text */
-  color: #e0e0e0;
+/* Footer Styles */
+.footer {
+    background-color: #333;
+    color: #ffffff;
+    text-align: center;
+    padding: 10px;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
 }
 
-.anonymous-message {
-  display: none;
-  font-size: 12px; /* Smaller font size for message */
-  color: #ffdf00;
-  font-weight: bold;
-}
-
-/* Submission Message Styling */
-.submission-message {
-  display: none;
-  margin-top: 15px;
-  padding: 10px;
-  border-radius: 8px;
-}
-
-.submission-message.success {
-  background-color: #28a745;
-  color: #ffffff;
-}
-
-.submission-message.error {
-  background-color: #dc3545;
-  color: #ffffff;
-}
-
-/* Responsive Adjustments */
+/* Media Queries */
 @media (max-width: 600px) {
-  h1 {
-    font-size: 20px; /* Further reduced font size for small screens */
-  }
+    .header h1 {
+        font-size: 20px;
+    }
 
-  input {
-    font-size: 14px; /* Ensure font size is readable */
-  }
+    .container {
+        padding: 15px;
+    }
 
-  button {
-    font-size: 14px; /* Reduced font size */
-  }
-
-  .checkbox-label input[type="checkbox"] {
-    width: 6px; /* Smaller checkbox width */
-    height: 6px; /* Smaller checkbox height */
-  }
-
-  .checkbox-text {
-    font-size: 14px; /* Consistent font size */
-  }
-
-  .anonymous-message {
-    font-size: 12px; /* Ensure font size is readable on small screens */
-  }
+    .submit-btn {
+        font-size: 14px;
+    }
 }
