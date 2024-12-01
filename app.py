@@ -1,38 +1,54 @@
 from flask import Flask, render_template, request, jsonify
+from flask_cors import CORS
+from datetime import datetime
+from flask_httpauth import HTTPBasicAuth
 
 app = Flask(__name__)
+CORS(app)
+auth = HTTPBasicAuth()
 
-# Global variable to store table data
-table_data = []
+# User data
+users = {
+    "admin": "Dinuth"  # Username and password
+}
 
-# Route for the presenter page
+@auth.verify_password
+def verify_password(username, password):
+    if users.get(username) == password:
+        return username
+
+# In-memory store for table numbers, questions, names, and timestamps
+table_numbers = []
+
 @app.route('/')
-def presenter_page():
+def index():
+    return render_template('button_page.html')
+
+@app.route('/presenter')
+@auth.login_required
+def presenter():
     return render_template('presenter_page.html')
 
-# Route to retrieve table data for the presenter page
-@app.route('/get_table_numbers', methods=['GET'])
+@app.route('/show_equation', methods=['POST'])
+def show_equation():
+    data = request.get_json()
+    table_number = data.get('table_number') if not data.get('anonymous') else 'Anonymous'
+    name = data.get('name') if not data.get('anonymous') else 'Anonymous'
+    question = data.get('question')
+    timestamp = datetime.now().strftime('%H:%M:%S')  # Only time
+    table_numbers.append({'table_number': table_number, 'question': question, 'name': name, 'timestamp': timestamp})
+    return jsonify({'status': 'success'})
+
+@app.route('/get_table_numbers')
 def get_table_numbers():
-    return jsonify({'table_numbers': table_data})
+    return jsonify({'table_numbers': table_numbers})
 
-# Route to clear table history
 @app.route('/clear_table_history', methods=['POST'])
+@auth.login_required
 def clear_table_history():
-    global table_data
-    table_data = []  # Clear table data
+    global table_numbers
+    table_numbers = []  # Clear the list
     return jsonify({'status': 'success'})
-
-# Route to add new table data
-@app.route('/add_table_data', methods=['POST'])
-def add_table_data():
-    data = request.json
-    table_data.insert(0, data)  # Add new data to the beginning of the list
-    return jsonify({'status': 'success'})
-
-# Route for the button page
-@app.route('/button')
-def button_page():
-    return render_template('button_page.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
