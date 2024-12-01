@@ -5,99 +5,82 @@ body {
   color: #e0e0e0;
   margin: 0;
   padding: 0;
-  overflow-x: hidden; /* Prevent horizontal scroll on mobile */
 }
 
 .container {
   width: 90%;
   max-width: 600px;
-  margin: 20px auto;
+  margin: 20px auto; /* Reduced margin for better fit on smaller screens */
   padding: 20px;
   background-color: #1f1f1f;
   border-radius: 15px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.8);
   text-align: center;
-  transition: transform 0.3s ease; /* Smooth transition */
-}
-
-.container:hover {
-  transform: scale(1.02); /* Slight zoom effect on hover */
 }
 
 h1 {
-  font-size: 24px;
+  font-size: 24px; /* Reduced font size for smaller screens */
   color: #ffffff;
-  margin-bottom: 15px;
+  margin-bottom: 15px; /* Reduced margin for better spacing */
 }
 
 input {
   width: calc(100% - 30px);
-  padding: 12px;
-  margin-bottom: 12px;
+  padding: 12px; /* Slightly smaller padding */
+  margin-bottom: 12px; /* Reduced margin for spacing */
   border: 1px solid #333;
   border-radius: 8px;
   background-color: #2e2e2e;
   color: #e0e0e0;
   box-sizing: border-box;
-  font-size: 14px;
-  transition: border-color 0.3s ease;
-}
-
-input:focus {
-  border-color: #007bff; /* Highlight border on focus */
-  outline: none;
+  font-size: 14px; /* Smaller font size for inputs */
 }
 
 button {
-  padding: 12px;
+  padding: 12px; /* Slightly smaller padding */
   border: none;
   border-radius: 8px;
   background-color: #007bff;
   color: #ffffff;
-  font-size: 16px;
+  font-size: 16px; /* Reduced font size */
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
+  transition: background-color 0.3s ease;
   width: 100%;
 }
 
 button:hover {
   background-color: #0056b3;
-  transform: scale(1.05); /* Slight zoom effect on hover */
-}
-
-button:active {
-  transform: scale(0.98); /* Pressed effect */
 }
 
 /* Anonymous Checkbox and Message Styling */
 .anonymous-container {
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  margin-top: 15px;
+  flex-direction: row; /* Arrange items horizontally */
+  align-items: center; /* Center items vertically */
+  justify-content: center; /* Center items horizontally */
+  margin-top: 15px; /* Reduced margin for spacing */
 }
 
 .checkbox-label {
   display: flex;
-  align-items: center;
-  margin-right: 10px;
+  align-items: center; /* Center checkbox and text vertically */
+  margin-right: 10px; /* Space between checkbox and text */
 }
 
 .checkbox-label input[type="checkbox"] {
-  width: 18px; /* Standard checkbox size */
-  height: 18px; /* Standard checkbox size */
-  margin-right: 5px;
+  width: 6px; /* Smaller checkbox width */
+  height: 6px; /* Smaller checkbox height */
+  margin-right: 5px; /* Space between checkbox and text */
 }
 
 .checkbox-text {
-  font-size: 14px;
+  font-size: 14px; /* Smaller font size for text */
   color: #e0e0e0;
 }
 
 .anonymous-message {
   display: none;
-  font-size: 12px;
+  font-size: 12px; /* Smaller font size for message */
   color: #ffdf00;
   font-weight: bold;
 }
@@ -113,44 +96,37 @@ button:active {
 .submission-message.success {
   background-color: #28a745;
   color: #ffffff;
-  animation: fadeIn 1s ease-in;
 }
 
 .submission-message.error {
   background-color: #dc3545;
   color: #ffffff;
-  animation: fadeIn 1s ease-in;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
 }
 
 /* Responsive Adjustments */
 @media (max-width: 600px) {
   h1 {
-    font-size: 20px;
+    font-size: 20px; /* Further reduced font size for small screens */
   }
 
   input {
-    font-size: 14px;
+    font-size: 14px; /* Ensure font size is readable */
   }
 
   button {
-    font-size: 14px;
+    font-size: 14px; /* Reduced font size */
   }
 
   .checkbox-label input[type="checkbox"] {
-    width: 18px;
-    height: 18px;
+    width: 6px; /* Smaller checkbox width */
+    height: 6px; /* Smaller checkbox height */
   }
 
-  .checkbox-text {
-    font-size: 14px;
+  .checkbox-text {q
+    font-size: 14px; /* Consistent font size */
   }
 
   .anonymous-message {
-    font-size: 12px;
+    font-size: 12px; /* Ensure font size is readable on small screens */
   }
 }
