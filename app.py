@@ -1,54 +1,65 @@
-from flask import Flask, render_template, request, jsonify
-from flask_cors import CORS
-from datetime import datetime
-from flask_httpauth import HTTPBasicAuth
+from flask import Flask, render_template, request, jsonify, redirect, url_for, session
 
 app = Flask(__name__)
-CORS(app)
-auth = HTTPBasicAuth()
 
-# User data
-users = {
-    "admin": "Dinuth"  # Username and password
-}
+# Secret key for session management
+app.secret_key = 'your_secret_key_here'
 
-@auth.verify_password
-def verify_password(username, password):
-    if users.get(username) == password:
-        return username
+# Global variable to store table data
+table_data = []
 
-# In-memory store for table numbers, questions, names, and timestamps
-table_numbers = []
+# Route for the login page
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
 
+        # Check if username and password are correct
+        if username == 'admin' and password == 'dinuth':
+            session['logged_in'] = True
+            return redirect(url_for('presenter_page'))
+        else:
+            return render_template('login_page.html', error='Invalid credentials')
+    return render_template('login_page.html')
+
+# Route for the presenter page (protected by login)
 @app.route('/')
-def index():
+def presenter_page():
+    if 'logged_in' in session:
+        return render_template('presenter_page.html')
+    else:
+        return redirect(url_for('login'))
+
+# Route to retrieve table data for the presenter page
+@app.route('/get_table_numbers', methods=['GET'])
+def get_table_numbers():
+    return jsonify({'table_numbers': table_data})
+
+# Route to clear table history
+@app.route('/clear_table_history', methods=['POST'])
+def clear_table_history():
+    global table_data
+    table_data = []  # Clear table data
+    return jsonify({'status': 'success'})
+
+# Route to add new table data
+@app.route('/add_table_data', methods=['POST'])
+def add_table_data():
+    data = request.json
+    table_data.insert(0, data)  # Add new data to the beginning of the list
+    return jsonify({'status': 'success'})
+
+# Route for the button page
+@app.route('/button')
+def button_page():
     return render_template('button_page.html')
 
-@app.route('/presenter')
-@auth.login_required
-def presenter():
-    return render_template('presenter_page.html')
-
-@app.route('/show_equation', methods=['POST'])
-def show_equation():
-    data = request.get_json()
-    table_number = data.get('table_number') if not data.get('anonymous') else 'Anonymous'
-    name = data.get('name') if not data.get('anonymous') else 'Anonymous'
-    question = data.get('question')
-    timestamp = datetime.now().strftime('%H:%M:%S')  # Only time
-    table_numbers.append({'table_number': table_number, 'question': question, 'name': name, 'timestamp': timestamp})
-    return jsonify({'status': 'success'})
-
-@app.route('/get_table_numbers')
-def get_table_numbers():
-    return jsonify({'table_numbers': table_numbers})
-
-@app.route('/clear_table_history', methods=['POST'])
-@auth.login_required
-def clear_table_history():
-    global table_numbers
-    table_numbers = []  # Clear the list
-    return jsonify({'status': 'success'})
+# Route to logout and end session
+@app.route('/logout')
+def logout():
+    session.pop('logged_in', None)  # Remove 'logged_in' session
+    return redirect(url_for('login'))
 
 if __name__ == '__main__':
     app.run(debug=True)
