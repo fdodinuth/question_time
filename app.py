@@ -9,7 +9,7 @@ auth = HTTPBasicAuth()
 
 # User data
 users = {
-    "admin": "Dinuth"  # Username and password
+    "admin": "admin"  # Username and password
 }
 
 @auth.verify_password
